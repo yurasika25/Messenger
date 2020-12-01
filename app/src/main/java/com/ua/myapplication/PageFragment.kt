@@ -46,24 +46,35 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         minusBT.setOnClickListener {
             callback.onMinus()
         }
-//        val notificationManager = requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createBT.setOnClickListener {
-//            val intent = Intent(requireActivity(), MainActivity::class.java)
-//            val pendingIntent = PendingIntent.getActivity(requireContext(),
-//                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                val notificationChannel = NotificationChannel(channelId, description,
-//                        NotificationManager.IMPORTANCE_HIGH)
-//                notificationChannel.enableLights(true)
-//                notificationChannel.lightColor = Color.GREEN
-//                notificationChannel.enableVibration(false)
-//                notificationManager.createNotificationChannel(notificationChannel)
-//            }
-//            val builder = NotificationCompat.Builder(requireContext(), channelId)
-//                    .setSmallIcon(R.drawable.notifications)
-//                    .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.notifications))
-//                    .setContentIntent(pendingIntent)
-//            notificationManager.notify(pageNumber, builder.build())
+            val intent = Intent(requireActivity(), MainActivity::class.java)
+                .putExtra(KEY_PAGE, pageNumber)
+            val pendingIntent = PendingIntent.getActivity(
+                requireContext(),
+                pageNumber, intent, PendingIntent.FLAG_UPDATE_CURRENT
+            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationChannel = NotificationChannel(
+                    channelId, description,
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.GREEN
+                notificationChannel.enableVibration(false)
+                notificationManager.createNotificationChannel(notificationChannel)
+            }
+            val builder = NotificationCompat.Builder(requireContext(), channelId)
+                .setSmallIcon(R.drawable.notifications)
+                .setLargeIcon(
+                    BitmapFactory.decodeResource(
+                        this.resources,
+                        R.drawable.notifications
+                    )
+                )
+                .setContentIntent(pendingIntent)
+            notificationManager.notify(pageNumber, builder.build())
         }
     }
 
