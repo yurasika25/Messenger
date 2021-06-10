@@ -1,4 +1,4 @@
-package com.ua.myapplication
+package com.ua.myapplication.fragment
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -6,18 +6,26 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.NotificationCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.ua.myapplication.R
+import com.ua.myapplication.`interface`.OnPlusMinusCallback
+import com.ua.myapplication.constants.Constants.ARGUMENT_PAGE_NUMBER
+import com.ua.myapplication.constants.Constants.channelId
+import com.ua.myapplication.constants.Constants.description
+import com.ua.myapplication.main.KEY_PAGE
+import com.ua.myapplication.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_page.*
 
 class PageFragment : Fragment(R.layout.fragment_page) {
 
     private var pageNumber = -1
     private lateinit var callback: OnPlusMinusCallback
+    private lateinit var notification: NotificationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +35,14 @@ class PageFragment : Fragment(R.layout.fragment_page) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpUI()
+        visibilityFun()
+    }
+
+    private fun visibilityFun() {
+        if (tvPage.text.toString().toInt() > 1)
+            minusBT.visibility = View.VISIBLE
+        else
+            minusBT.visibility = View.INVISIBLE
     }
 
     override fun onAttach(context: Context) {
@@ -45,10 +61,13 @@ class PageFragment : Fragment(R.layout.fragment_page) {
         }
         minusBT.setOnClickListener {
             callback.onMinus()
+            notification.cancel(pageNumber)
+
         }
-        val notificationManager =
+
+        notification =
             requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        createBT.setOnClickListener {
+        create_new.setOnClickListener {
             val intent = Intent(requireActivity(), MainActivity::class.java)
                 .putExtra(KEY_PAGE, pageNumber)
             val pendingIntent = PendingIntent.getActivity(
@@ -60,28 +79,33 @@ class PageFragment : Fragment(R.layout.fragment_page) {
                     channelId, description,
                     NotificationManager.IMPORTANCE_HIGH
                 )
-                notificationChannel.enableLights(true)
-                notificationChannel.lightColor = Color.GREEN
-                notificationChannel.enableVibration(false)
-                notificationManager.createNotificationChannel(notificationChannel)
+                notification.createNotificationChannel(notificationChannel)
             }
+
             val builder = NotificationCompat.Builder(requireContext(), channelId)
-                .setSmallIcon(R.drawable.notifications)
+                .setSmallIcon(R.drawable.ic_notification_small)
+                .setContentTitle(context?.getString(R.string.notification_title))
+                .setContentText("Notification $pageNumber")
+                .setColor(
+                    ResourcesCompat.getColor(
+                        resources,
+                        R.color.color_text_notification,
+                        null
+                    )
+                )
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
                 .setLargeIcon(
                     BitmapFactory.decodeResource(
-                        this.resources,
-                        R.drawable.notifications
+                        this.resources, R.drawable.ic_foreground
                     )
                 )
                 .setContentIntent(pendingIntent)
-            notificationManager.notify(pageNumber, builder.build())
+            notification.notify(pageNumber, builder.build())
         }
     }
 
     companion object {
-        private const val ARGUMENT_PAGE_NUMBER = "arg_page_number"
-        private const val channelId = "i.apps.notifications"
-        private const val description = "Test notification"
 
         fun newInstance(page: Int): PageFragment {
             val pageFragment = PageFragment()
@@ -91,9 +115,4 @@ class PageFragment : Fragment(R.layout.fragment_page) {
             return pageFragment
         }
     }
-}
-
-interface OnPlusMinusCallback {
-    fun onPlus()
-    fun onMinus()
 }

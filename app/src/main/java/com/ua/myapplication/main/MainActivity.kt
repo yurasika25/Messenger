@@ -1,4 +1,4 @@
-package com.ua.myapplication
+package com.ua.myapplication.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.ua.myapplication.R
+import com.ua.myapplication.`interface`.OnPlusMinusCallback
+import com.ua.myapplication.fragment.PageFragment
 
 const val KEY_PAGE = "page"
 
@@ -35,7 +38,7 @@ class MainActivity : FragmentActivity(), OnPlusMinusCallback {
     }
 
     private inner class MyFragmentPagerAdapter(fm: FragmentManager) :
-            FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         override fun getItem(position: Int) = PageFragment.newInstance(position + 1)
 
         override fun getCount() = page

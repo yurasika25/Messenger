@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TestTask</string>
+    <string name="app_name">Messenger</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -7,9 +7,10 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="create_new">Create new notification</string>
-    <string name="todo">TODO</string>
+    <string name="btn_plus">Button plus</string>
+    <string name="btn_minus">Button minus</string>
     <string name="_1">1</string>
     <string name="you_create">You create a notification</string>
-    <string name="notification">Notification 1</string>
+    <string name="notification_title">You create a notification</string>
 
 </resources>

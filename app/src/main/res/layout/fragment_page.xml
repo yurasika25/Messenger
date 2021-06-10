@@ -1,90 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/photos"
-    tools:context=".MainActivity">
+    android:background="@color/color_fon"
+    tools:context=".main.MainActivity">
 
-    <ImageView
-        android:id="@+id/font"
-        android:layout_width="335dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginBottom="52dp"
-        android:background="@drawable/circle_one"
-        android:contentDescription="@string/todo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createBT" />
 
-    <ImageButton
-        android:id="@+id/createBT"
-        android:layout_width="194dp"
-        android:layout_height="188dp"
-        android:layout_marginTop="160dp"
-        android:background="@drawable/never"
-        android:contentDescription="@string/todo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/create_new"
+        android:layout_width="166dp"
+        android:layout_height="166dp"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="119dp"
+        android:backgroundTint="@color/card_color"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="82dp"
+        app:cardElevation="15dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="162dp"
-        android:layout_height="62dp"
-        android:gravity="center"
-        android:text="@string/create_new"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/createBT"
-        app:layout_constraintEnd_toEndOf="@+id/createBT"
-        app:layout_constraintStart_toStartOf="@+id/createBT"
-        app:layout_constraintTop_toTopOf="@+id/createBT" />
 
-    <ImageButton
-        android:id="@+id/plusBT"
-        android:layout_width="59dp"
-        android:layout_height="61dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="296dp"
-        android:layout_marginBottom="49dp"
-        android:background="@drawable/button_never"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/plus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/font"
-        app:layout_constraintTop_toBottomOf="@+id/createBT" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="131dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/create_new"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvPage"
-        android:layout_width="wrap_content"
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="302dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:textColor="@color/new_color"
-        android:textSize="33sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/plusBT"
-        app:layout_constraintStart_toEndOf="@id/minusBT"
-        tools:text="@string/_1" />
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="25dp"
+        android:backgroundTint="@color/card_color"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="0dp">
 
-    <ImageButton
-        android:id="@+id/minusBT"
-        android:layout_width="59dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="296dp"
-        android:layout_marginEnd="288dp"
-        android:layout_marginBottom="49dp"
-        android:background="@drawable/button_never"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/minus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/font"
-        app:layout_constraintTop_toBottomOf="@+id/createBT" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/minusBT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            app:cardCornerRadius="27dp"
+            app:cardElevation="6dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/button_circle"
+                android:clickable="false"
+                android:contentDescription="@string/btn_minus"
+                android:focusable="false"
+                android:src="@drawable/minus" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <TextView
+            android:id="@+id/tvPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto"
+            android:layout_marginBottom="2dp"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            tools:text="@string/_1" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/plusBT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="27dp"
+            app:cardElevation="6dp">
+
+            <ImageButton
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_gravity="end"
+                android:background="@drawable/button_circle"
+                android:clickable="false"
+                android:contentDescription="@string/btn_plus"
+                android:elevation="6dp"
+                android:focusable="false"
+                android:src="@drawable/plus" />
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 
